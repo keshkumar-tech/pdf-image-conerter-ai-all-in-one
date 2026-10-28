@@ -1,0 +1,597 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-cf-bg: #F0F5FA;
+  --color-cf-bg-elevated: #FFFFFF;
+  --color-cf-bg-glass: rgba(255, 255, 255, 0.72);
+  --color-cf-bg-glass-strong: rgba(255, 255, 255, 0.88);
+  --color-cf-text-primary: #1A2332;
+  --color-cf-text-secondary: #5A6B7D;
+  --color-cf-text-muted: #8A9BB0;
+  --color-cf-accent: #38BDF8;
+  --color-cf-accent-light: #7DD3FC;
+  --color-cf-accent-glow: #A5F3FC;
+  --color-cf-accent-dark: #0EA5E9;
+  --color-cf-border: #D6E3F0;
+  --color-cf-border-light: #E8F0F8;
+  --color-cf-border-strong: #B8CCE0;
+  --color-cf-gradient-start: #E8F4FD;
+  --color-cf-gradient-end: #F0F5FA;
+  --color-cf-surface: #F6F9FC;
+  --color-cf-surface-2: #EDF2F8;
+
+  /* ---- Vibrant rainbow palette ---- */
+  --color-vibe-pink: #ff2d95;
+  --color-vibe-rose: #ff5f6d;
+  --color-vibe-orange: #ff9a3c;
+  --color-vibe-amber: #ffd166;
+  --color-vibe-lime: #a8e063;
+  --color-vibe-green: #22d3a6;
+  --color-vibe-cyan: #22d3ee;
+  --color-vibe-blue: #3b82f6;
+  --color-vibe-indigo: #6366f1;
+  --color-vibe-violet: #a855f7;
+  --color-vibe-fuchsia: #e879f9;
+}
+
+:root {
+  --cf-bg: #F0F5FA;
+  --cf-bg-elevated: #FFFFFF;
+  --cf-bg-glass: rgba(255, 255, 255, 0.72);
+  --cf-bg-glass-strong: rgba(255, 255, 255, 0.88);
+  --cf-text-primary: #1A2332;
+  --cf-text-secondary: #5A6B7D;
+  --cf-text-muted: #8A9BB0;
+  --cf-accent: #38BDF8;
+  --cf-accent-light: #7DD3FC;
+  --cf-accent-glow: #A5F3FC;
+  --cf-accent-dark: #0EA5E9;
+  --cf-border: #D6E3F0;
+  --cf-border-light: #E8F0F8;
+  --cf-border-strong: #B8CCE0;
+  --cf-gradient-start: #E8F4FD;
+  --cf-gradient-end: #F0F5FA;
+  --cf-surface: #F6F9FC;
+  --cf-surface-2: #EDF2F8;
+
+  --vibe-pink: #ff2d95;
+  --vibe-rose: #ff5f6d;
+  --vibe-orange: #ff9a3c;
+  --vibe-amber: #ffd166;
+  --vibe-lime: #a8e063;
+  --vibe-green: #22d3a6;
+  --vibe-cyan: #22d3ee;
+  --vibe-blue: #3b82f6;
+  --vibe-indigo: #6366f1;
+  --vibe-violet: #a855f7;
+  --vibe-fuchsia: #e879f9;
+
+  --vibe-rainbow: linear-gradient(90deg, #ff2d95, #ff9a3c, #ffd166, #22d3a6, #22d3ee, #6366f1, #a855f7, #ff2d95);
+
+  /* Theme-aware glass tokens (default = light) */
+  --cf-glass-border: rgba(255, 255, 255, 0.5);
+  --cf-glass-border-strong: rgba(255, 255, 255, 0.6);
+  --cf-glass-card: rgba(255, 255, 255, 0.78);
+  --cf-glass-input: rgba(255, 255, 255, 0.85);
+}
+
+/* Dark theme tokens.
+   Every component reads colour through these custom properties, so overriding
+   them here is what actually flips the whole UI. Without this block the dark
+   class only changed backgrounds in a few hand-written rules and left all
+   text/ surface / border tokens on their light values — dark-on-dark text. */
+.dark {
+  --cf-bg: #0b1020;
+  --cf-bg-elevated: #0d1224;
+  --cf-bg-glass: rgba(19, 26, 46, 0.72);
+  --cf-bg-glass-strong: rgba(13, 18, 36, 0.88);
+  --cf-text-primary: #E9EEF6;
+  --cf-text-secondary: #B4C2D6;
+  --cf-text-muted: #8595AD;
+  --cf-accent: #38BDF8;
+  --cf-accent-light: #7DD3FC;
+  --cf-accent-glow: #A5F3FC;
+  --cf-accent-dark: #7DD3FC;
+  --cf-border: #26314a;
+  --cf-border-light: #1c2540;
+  --cf-border-strong: #3a4867;
+  --cf-gradient-start: #0d1224;
+  --cf-gradient-end: #0b1020;
+  --cf-surface: #141b2f;
+  --cf-surface-2: #1b2438;
+
+  --cf-glass-border: rgba(255, 255, 255, 0.08);
+  --cf-glass-border-strong: rgba(255, 255, 255, 0.12);
+  --cf-glass-card: rgba(20, 27, 47, 0.78);
+  --cf-glass-input: rgba(20, 27, 47, 0.85);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--cf-bg);
+  color: var(--cf-text-primary);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.glass {
+  background: var(--cf-bg-glass);
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  border: 1px solid var(--cf-glass-border);
+  box-shadow: 0 4px 24px rgba(56, 189, 248, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.glass-strong {
+  background: var(--cf-bg-glass-strong);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid var(--cf-glass-border-strong);
+  box-shadow: 0 8px 32px rgba(56, 189, 248, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.glass-card {
+  background: var(--cf-glass-card);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid var(--cf-border);
+  box-shadow: 0 2px 12px rgba(56, 189, 248, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.glass-input {
+  background: var(--cf-glass-input);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--cf-border);
+}
+
+.frost-glow {
+  position: relative;
+}
+
+.frost-glow::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  background: linear-gradient(135deg, rgba(125, 211, 252, 0.3), rgba(165, 243, 252, 0.1), rgba(56, 189, 248, 0.2));
+  z-index: -1;
+  filter: blur(8px);
+  opacity: 0.6;
+}
+
+.cf-gradient-text {
+  background: linear-gradient(135deg, var(--cf-accent-dark), var(--cf-accent), var(--cf-accent-light));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.cf-aurora-bg {
+  background: 
+    radial-gradient(ellipse at 20% 50%, rgba(125, 211, 252, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(165, 243, 252, 0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(56, 189, 248, 0.08) 0%, transparent 50%),
+    var(--cf-bg);
+}
+
+.cf-subtle-gradient {
+  background: linear-gradient(180deg, var(--cf-gradient-start) 0%, var(--cf-gradient-end) 100%);
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--cf-border-strong);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--cf-accent);
+}
+
+::selection {
+  background: rgba(56, 189, 248, 0.2);
+  color: var(--cf-text-primary);
+}
+
+.dark ::selection {
+  background: rgba(56, 189, 248, 0.3);
+  color: #E2E8F0;
+}
+
+.katex-block {
+  background: var(--cf-bg-elevated) !important;
+  border: 1px solid var(--cf-border) !important;
+  border-radius: 12px !important;
+  padding: 12px !important;
+}
+
+.katex-inline {
+  color: var(--cf-text-primary) !important;
+}
+/* ==================================================================
+   NOTE FLOW — COLORFUL ANIMATION SYSTEM
+   Multi-color gradients, moving auroras, floating orbs, marquees,
+   shimmer sweeps, hue-cycling and springy entrances.
+   ================================================================== */
+
+/* ---------- Keyframes ---------- */
+
+@keyframes cf-gradient-pan {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes cf-blob-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  33%  { transform: translate3d(6%, -8%, 0) scale(1.12); }
+  66%  { transform: translate3d(-7%, 5%, 0) scale(0.94); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes cf-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-14px) rotate(3deg); }
+}
+
+@keyframes cf-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes cf-pop-in {
+  0%   { opacity: 0; transform: translateY(22px) scale(0.96); }
+  60%  { opacity: 1; transform: translateY(-4px) scale(1.01); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes cf-hue {
+  from { filter: hue-rotate(0deg); }
+  to   { filter: hue-rotate(360deg); }
+}
+
+@keyframes cf-spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes cf-shimmer {
+  0%   { transform: translateX(-120%) skewX(-18deg); }
+  100% { transform: translateX(320%) skewX(-18deg); }
+}
+
+@keyframes cf-pulse-ring {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 45, 149, 0.45); }
+  70%  { box-shadow: 0 0 0 16px rgba(255, 45, 149, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 45, 149, 0); }
+}
+
+@keyframes cf-border-spin {
+  to { --cf-angle: 360deg; }
+}
+
+@keyframes cf-bounce-soft {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+/* ---------- Animated gradient text & surfaces ---------- */
+
+@property --cf-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.cf-rainbow-text {
+  background-image: linear-gradient(
+    90deg,
+    #ff2d95, #ff5f6d, #ff9a3c, #ffd166, #a8e063,
+    #22d3a6, #22d3ee, #6366f1, #a855f7, #ff2d95
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: cf-gradient-pan 8s ease infinite;
+}
+
+.cf-rainbow-underline {
+  display: inline-block;
+  background-image: linear-gradient(90deg, #ff2d95, #ff9a3c, #22d3a6, #22d3ee, #a855f7, #ff2d95);
+  background-size: 300% 100%;
+  animation: cf-gradient-pan 6s linear infinite;
+}
+
+.cf-rainbow-bar {
+  background-image: linear-gradient(
+    90deg,
+    #ff2d95, #ff5f6d, #ff9a3c, #ffd166, #a8e063,
+    #22d3a6, #22d3ee, #3b82f6, #6366f1, #a855f7, #ff2d95
+  );
+  background-size: 300% 100%;
+  animation: cf-gradient-pan 7s linear infinite;
+}
+
+.cf-animated-gradient {
+  background-image: linear-gradient(120deg, #ff2d95, #ff9a3c, #ffd166, #22d3a6, #22d3ee, #6366f1, #a855f7);
+  background-size: 260% 260%;
+  animation: cf-gradient-pan 10s ease infinite;
+}
+
+/* Moving rainbow ring around a card */
+.cf-gradient-ring {
+  position: relative;
+  isolation: isolate;
+}
+
+.cf-gradient-ring::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from var(--cf-angle),
+    #ff2d95, #ff9a3c, #ffd166, #22d3a6, #22d3ee, #6366f1, #a855f7, #ff2d95
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  animation: cf-border-spin 4s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.cf-gradient-ring:hover::before,
+.cf-gradient-ring:focus-within::before {
+  opacity: 1;
+}
+
+/* ---------- Aurora / blob backgrounds ---------- */
+
+.cf-vibe-bg {
+  position: relative;
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 8%, rgba(255, 45, 149, 0.18), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 88% 12%, rgba(34, 211, 238, 0.2), transparent 60%),
+    radial-gradient(ellipse 50% 45% at 78% 88%, rgba(168, 85, 247, 0.16), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 18% 92%, rgba(255, 209, 102, 0.18), transparent 60%),
+    #fdfbff;
+}
+
+.dark .cf-vibe-bg {
+  background:
+    radial-gradient(ellipse 60% 50% at 12% 8%, rgba(255, 45, 149, 0.22), transparent 62%),
+    radial-gradient(ellipse 55% 45% at 88% 12%, rgba(34, 211, 238, 0.2), transparent 62%),
+    radial-gradient(ellipse 50% 45% at 78% 88%, rgba(168, 85, 247, 0.24), transparent 62%),
+    radial-gradient(ellipse 55% 45% at 18% 92%, rgba(99, 102, 241, 0.2), transparent 62%),
+    #070b18;
+}
+
+.cf-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(60px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: cf-blob-drift 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.cf-blob-slow { animation-duration: 26s; }
+.cf-blob-reverse { animation-direction: reverse; }
+
+/* Grid overlay for a techy, colourful depth feel */
+.cf-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 45, 149, 0.08) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+}
+
+/* ---------- Marquee ticker ---------- */
+
+.cf-marquee {
+  display: flex;
+  width: max-content;
+  animation: cf-marquee 26s linear infinite;
+}
+
+.cf-marquee-fast { animation-duration: 16s; }
+
+.cf-marquee-mask {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  overflow: hidden;
+}
+
+/* ---------- Entrance animations ---------- */
+
+.cf-pop-in {
+  animation: cf-pop-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.cf-float { animation: cf-float 6s ease-in-out infinite; }
+.cf-bounce-soft { animation: cf-bounce-soft 2.4s ease-in-out infinite; }
+.cf-spin-slow { animation: cf-spin-slow 14s linear infinite; }
+.cf-hue { animation: cf-hue 8s linear infinite; }
+
+/* ---------- Shimmer sweep on hover ---------- */
+
+.cf-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.cf-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  bottom: -50%;
+  left: 0;
+  width: 42%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.65), transparent);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cf-shimmer:hover::after {
+  opacity: 1;
+  animation: cf-shimmer 0.9s ease;
+}
+
+/* ---------- Card hover lift ---------- */
+
+.cf-lift {
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.cf-lift:hover {
+  transform: translateY(-6px) scale(1.015);
+}
+
+/* Colour-cycling glow per card via --cf-glow tokens */
+.cf-glow-card {
+  box-shadow: 0 4px 20px -8px var(--cf-glow, rgba(99, 102, 241, 0.35));
+}
+
+.cf-glow-card:hover {
+  box-shadow: 0 18px 45px -12px var(--cf-glow, rgba(99, 102, 241, 0.6));
+}
+
+/* ---------- Buttons ---------- */
+
+/* Deep, saturated stops only — pastel stops left white labels unreadable
+   as the gradient panned. Every stop here keeps >= 4.5:1 against white. */
+.cf-btn-rainbow {
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(110deg, #e11d70, #ea580c, #0d9488, #0284c7, #4f46e5, #7e22ce, #e11d70);
+  background-size: 250% 100%;
+  animation: cf-gradient-pan 6s ease infinite;
+  color: #fff;
+  font-weight: 800;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 10px 30px -10px rgba(168, 85, 247, 0.7);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cf-btn-rainbow:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px -10px rgba(255, 45, 149, 0.7);
+}
+
+.cf-btn-rainbow:disabled {
+  animation-play-state: paused;
+  filter: saturate(0.55);
+  text-shadow: none;
+}
+
+/* Outline variant for secondary CTAs that still reads as colourful */
+.cf-btn-outline {
+  position: relative;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(var(--cf-bg-elevated), var(--cf-bg-elevated)) padding-box,
+    linear-gradient(110deg, #e11d70, #ea580c, #0d9488, #0284c7, #7e22ce) border-box;
+  color: var(--cf-text-primary);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cf-btn-outline:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px -14px rgba(126, 34, 206, 0.6);
+}
+
+.cf-pulse-ring { animation: cf-pulse-ring 2.6s ease-out infinite; }
+
+/* ---------- Tag / chip ---------- */
+
+.cf-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  border-radius: 9999px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background-image: linear-gradient(100deg, var(--chip-from, #6366f1), var(--chip-to, #22d3ee));
+  background-size: 180% 100%;
+  animation: cf-gradient-pan 7s ease infinite;
+}
+
+/* ---------- Divider ---------- */
+
+.cf-rainbow-divider {
+  height: 3px;
+  width: 100%;
+  border-radius: 9999px;
+  background-image: linear-gradient(90deg, #ff2d95, #ff9a3c, #22d3a6, #22d3ee, #6366f1, #a855f7);
+  background-size: 200% 100%;
+  animation: cf-gradient-pan 6s linear infinite;
+}
+
+/* ---------- Stat tile ---------- */
+
+.cf-stat {
+  border-radius: 1rem;
+  padding: 1rem;
+  text-align: center;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--cf-bg-elevated), var(--cf-bg-elevated)) padding-box,
+    linear-gradient(120deg, var(--stat-from, #6366f1), var(--stat-to, #22d3ee)) border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cf-stat:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 30px -18px var(--stat-from, #6366f1);
+}
+
+/* ---------- Respect reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .cf-blob,
+  .cf-marquee,
+  .cf-rainbow-text,
+  .cf-rainbow-bar,
+  .cf-animated-gradient,
+  .cf-float,
+  .cf-bounce-soft,
+  .cf-spin-slow,
+  .cf-hue,
+  .cf-btn-rainbow,
+  .cf-rainbow-divider,
+  .cf-chip,
+  .cf-pop-in,
+  .cf-pulse-ring,
+  .cf-gradient-ring::before {
+    animation: none !important;
+  }
+  .cf-lift:hover { transform: none; }
+}

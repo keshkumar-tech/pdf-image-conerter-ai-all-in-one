@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "Concept Builder Classes",
+    "slug": "concept-builder-classes",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash-logo.jpg",
+      "resizeMode": "contain",
+      "backgroundColor": "#000000"
+    },
+    "android": {
+      "package": "com.codingwithkesh.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#000000"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.codingwithkesh.app",
+      "supportsTablet": true,
+      "icon": "./assets/icon.png"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "experiments": {
+      "baseUrl": "/library/school"
+    }
+  }
+}

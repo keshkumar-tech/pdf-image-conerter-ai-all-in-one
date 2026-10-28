@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": [
+        "./*"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "types": ["vite/client"]
+  },
+  // The three reference apps under src/library/ are separate projects with
+  // their own tsconfigs, aliases and build pipelines. They are built and
+  // served as standalone bundles (see server.ts), so they are excluded from
+  // the NoteFlow typecheck to avoid alias/dependency collisions.
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.d.ts"],
+  "exclude": [
+    "node_modules",
+    "src/library/cbc-admin-dashboard",
+    "src/library/cbc-student-dashboard",
+    "src/library/cbc-backend"
+  ]
+}

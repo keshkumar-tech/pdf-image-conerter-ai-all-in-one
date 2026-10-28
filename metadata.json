@@ -1,0 +1,6 @@
+{
+  "name": "NoteFlow AI",
+  "description": "Turn Hours of Video Into Complete Study Notes with intelligent chunking, topic detection, and slide-style PDF export.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
